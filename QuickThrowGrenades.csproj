@@ -1,0 +1,110 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <AssemblyName>QuickThrowGrenades</AssemblyName>
+    <Description>Quick Throw Grenades</Description>
+    <Version>1.0.0</Version>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <LangVersion>latest</LangVersion>
+    <Configurations>Debug;Release;EDITOR_DEBUG;EDITOR</Configurations>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Deps\**" />
+    <EmbeddedResource Remove="Deps\**" />
+    <None Remove="Deps\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" />
+    <PackageReference Include="BepInEx.Core" Version="5.*" />
+    <PackageReference Include="BepInEx.PluginInfoProps" Version="1.*" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="UnityEngine.Modules" Version="2019.4.39" IncludeAssets="compile" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<Reference Include="Assembly-CSharp">
+			<HintPath>$(SolutionDir)deps\Assembly-CSharp.dll</HintPath>
+		</Reference>
+		<Reference Include="Comfort">
+			<HintPath>$(SolutionDir)deps\Comfort.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.CoreModule">
+			<HintPath>$(SolutionDir)deps\UnityEngine.CoreModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine">
+			<HintPath>$(SolutionDir)deps\UnityEngine.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.InputLegacyModule">
+			<HintPath>..\Deps\UnityEngine.InputLegacyModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.PhysicsModule">
+			<HintPath>..\Deps\UnityEngine.PhysicsModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.UI">
+			<HintPath>$(SolutionDir)deps\UnityEngine.UI.dll</HintPath>
+		</Reference>
+		<Reference Include="Unity.TextMeshPro">
+			<HintPath>$(SolutionDir)deps\Unity.TextMeshPro.dll</HintPath>
+		</Reference>
+		<Reference Include="aki-core">
+			<HintPath>$(SolutionDir)deps\aki-core.dll</HintPath>
+		</Reference>
+		<Reference Include="aki-singleplayer">
+			<HintPath>$(SolutionDir)deps\aki-singleplayer.dll</HintPath>
+		</Reference>
+		<Reference Include="aki-debugging">
+			<HintPath>$(SolutionDir)deps\aki-debugging.dll</HintPath>
+		</Reference>
+		<Reference Include="aki-custom">
+			<HintPath>$(SolutionDir)deps\aki-custom.dll</HintPath>
+		</Reference>
+		<Reference Include="aki.Common">
+			<HintPath>$(SolutionDir)deps\aki.Common.dll</HintPath>
+		</Reference>
+		<Reference Include="Aki.reflection">
+			<HintPath>$(SolutionDir)deps\Aki.Reflection.dll</HintPath>
+		</Reference>
+		<Reference Include="aki.Build">
+			<HintPath>$(SolutionDir)deps\aki.Build.dll</HintPath>
+		</Reference>
+		<Reference Include="Sirenix.Serialization">
+			<HintPath>$(SolutionDir)deps\Sirenix.Serialization.dll</HintPath>
+		</Reference>
+		<Reference Include="0Harmony">
+			<HintPath>$(SolutionDir)deps\0Harmony.dll</HintPath>
+		</Reference>
+		<Reference Include="BsgConsoleCore">
+			<HintPath>$(SolutionDir)deps\bsg.console.core.dll</HintPath>
+		</Reference>
+		<Reference Include="BepinEx">
+			<HintPath>$(SolutionDir)deps\BepInEx.dll</HintPath>
+		</Reference>
+		<Reference Include="ConfigurationManager">
+			<HintPath>$(SolutionDir)deps\ConfigurationManager.dll</HintPath>
+		</Reference>
+		<Reference Include="ItemComponent.Types">
+			<HintPath>$(SolutionDir)deps\ItemComponent.Types.dll</HintPath>
+		</Reference>
+		<Reference Include="ItemTemplate.Types">
+			<HintPath>$(SolutionDir)deps\ItemTemplate.Types.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+	
+  <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="all" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Reference Include="UnityEngine">
+      <HintPath>TarkovTools\Deps\UnityEngine.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="copy &quot;$(TargetPath)&quot; &quot;G:\3.7.0 - Dev\BepInEx\plugins\$(TargetName).dll&quot;&#xD;&#xA;if $(ConfigurationName) == Debug (&#xD;&#xA;    copy &quot;$(ProjectDir)$(OutDir)$(TargetName).pdb&quot; &quot;G:\3.7.0 - Dev\BepInEx\plugins\$(TargetName).pdb&quot;&#xD;&#xA;) else (&#xD;&#xA;    del &quot;G:\3.7.0 - Dev\BepInEx\plugins\$(TargetName).pdb&quot;&#xD;&#xA;)&#xD;&#xA;&#xD;&#xA;del &quot;G:\3.7.0 - Dev\BepInEx\config\com.dirtbikercj.EasySkillOptions.cfg&quot;" />
+	</Target>
+
+</Project>
